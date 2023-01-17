@@ -3,7 +3,12 @@
 ## About - SWORD SLINGER -
 Get ready for an epic adventure with Sword Slinger! As the hero, you'll face off against waves of enemies, each more challenging than the last. But don't worry, you'll have an arsenal of swords at your disposal. As you progress through the levels, you'll have the opportunity to unlock new swords. The game combines fast-paced action with strategic swordplay as you juggle between enemies. Will you have what it takes to become the ultimate Sword Slinger? Play now and find out!
 
-## Video Demo
+## Gameplay Photos
+![Example 1](./gitImages/1.PNG)
+![Example 2](./gitImages/2.PNG)
+
+
+## Gameplay video
 https://youtu.be/1yp89-7oi5A
 
 ## Where to play
