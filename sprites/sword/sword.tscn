@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://sprites/sword/swords.png" type="Texture" id=1]
+[ext_resource path="res://sprites/sword/collisionBox.gd" type="Script" id=2]
+[ext_resource path="res://sprites/sword/sword.gd" type="Script" id=3]
+[ext_resource path="res://sprites/sword/attackBox.gd" type="Script" id=4]
+[ext_resource path="res://sprites/sword/searchBox.gd" type="Script" id=5]
+[ext_resource path="res://sprites/sword/swordThrow.wav" type="AudioStream" id=6]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 160, 64, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 4.0
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id=6]
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 4.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id=5]
+
+[node name="sword" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": "Collision Box = 2
+Attack Box = 9"
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 0.785398
+frames = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 3 )
+disabled = true
+
+[node name="searchBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+script = ExtResource( 5 )
+__meta__ = {
+"_editor_description_": "Accept Collision with Only hero"
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="searchBox"]
+shape = SubResource( 6 )
+
+[node name="collisionBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionBox"]
+shape = SubResource( 4 )
+disabled = true
+
+[node name="attackBox" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 16
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackBox"]
+shape = SubResource( 5 )
+disabled = true
+
+[node name="swordThrow" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -15.488
+pitch_scale = 0.8
+
+[connection signal="area_entered" from="searchBox" to="." method="_on_searchBox_area_entered"]
+[connection signal="area_exited" from="searchBox" to="." method="_on_searchBox_area_exited"]

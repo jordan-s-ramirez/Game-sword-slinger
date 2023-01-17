@@ -1,0 +1,140 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://sprites/spriteComponents/spriteIdle.tres" type="Animation" id=1]
+[ext_resource path="res://sprites/player/playerAnimation.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://sprites/spriteComponents/spriteshurt.tres" type="Animation" id=3]
+[ext_resource path="res://sprites/player/player.gd" type="Script" id=4]
+[ext_resource path="res://sprites/spriteComponents/progressBar.tres" type="Theme" id=5]
+[ext_resource path="res://sprites/player/hitbox.gd" type="Script" id=6]
+[ext_resource path="res://sprites/player/playerHit.wav" type="AudioStream" id=7]
+[ext_resource path="res://sprites/player/healed.wav" type="AudioStream" id=8]
+[ext_resource path="res://sprites/sword/swords.png" type="Texture" id=9]
+[ext_resource path="res://sprites/player/animSword/animSwordDown.tres" type="Animation" id=10]
+[ext_resource path="res://sprites/player/animSword/playeranimSwordLeft.tres" type="Animation" id=11]
+[ext_resource path="res://sprites/player/animSword/playeranimSwordRight.tres" type="Animation" id=12]
+[ext_resource path="res://sprites/player/animSword/animSwordUp.tres" type="Animation" id=13]
+[ext_resource path="res://sprites/player/AnimationSword.gd" type="Script" id=14]
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 160, 64, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "hold",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 14.0
+
+[sub_resource type="Animation" id=7]
+resource_name = "animSword"
+
+[sub_resource type="CircleShape2D" id=3]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 13.0384
+
+[sub_resource type="CircleShape2D" id=4]
+
+[node name="player" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 4 )
+__meta__ = {
+"_editor_description_": "Collision Box = 2
+Hit Box = 1"
+}
+
+[node name="AnimatedSword" type="AnimatedSprite" parent="."]
+position = Vector2( -15, 30 )
+rotation = -2.30558
+frames = SubResource( 6 )
+animation = "hold"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 5.96046e-08, 0 )
+scale = Vector2( 1.375, 1.375 )
+frames = ExtResource( 2 )
+animation = "up"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/spriteIdle = ExtResource( 1 )
+anims/spriteshurt = ExtResource( 3 )
+
+[node name="AnimationSword" type="AnimationPlayer" parent="."]
+reset_on_save = false
+anims/animSword = SubResource( 7 )
+anims/animSwordDown = ExtResource( 10 )
+anims/animSwordLeft = ExtResource( 11 )
+anims/animSwordRight = ExtResource( 12 )
+anims/animSwordUp = ExtResource( 13 )
+script = ExtResource( 14 )
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -24.5
+margin_top = -32.5
+margin_right = 24.5
+margin_bottom = -21.5
+theme = ExtResource( 5 )
+max_value = 1.0
+value = 1.0
+percent_visible = false
+
+[node name="collisionBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionBox"]
+shape = SubResource( 3 )
+
+[node name="playerHitbox" type="Area2D" parent="."]
+collision_mask = 256
+script = ExtResource( 6 )
+__meta__ = {
+"_editor_description_": "Player Hitbox = 1"
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerHitbox"]
+shape = SubResource( 2 )
+
+[node name="targetBox" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="targetBox"]
+shape = SubResource( 4 )
+
+[node name="playerHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -12.235
+pitch_scale = 0.9
+
+[node name="healed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -9.614
+pitch_scale = 1.3
+
+[node name="hitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="playerHitbox" to="." method="_on_playerHitbox_area_entered"]
+[connection signal="timeout" from="hitTimer" to="." method="_on_hitTimer_timeout"]

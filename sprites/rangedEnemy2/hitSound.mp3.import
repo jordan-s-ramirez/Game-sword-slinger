@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hitSound.mp3-5cb038111950880c4cdddcfb4bf9bfc2.mp3str"
+
+[deps]
+
+source_file="res://sprites/rangedEnemy2/hitSound.mp3"
+dest_files=[ "res://.import/hitSound.mp3-5cb038111950880c4cdddcfb4bf9bfc2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

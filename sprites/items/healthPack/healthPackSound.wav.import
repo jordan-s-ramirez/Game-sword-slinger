@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/healthPackSound.wav-2d8d857cf9f04dd6db6fa998d35573af.sample"
+
+[deps]
+
+source_file="res://sprites/items/healthPack/healthPackSound.wav"
+dest_files=[ "res://.import/healthPackSound.wav-2d8d857cf9f04dd6db6fa998d35573af.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

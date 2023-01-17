@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/PerituneMaterial_EpicBattle_Deity.mp3-cf8271d701c872dbcfef91948e7b1dd0.mp3str"
+
+[deps]
+
+source_file="res://audio/PerituneMaterial_EpicBattle_Deity.mp3"
+dest_files=[ "res://.import/PerituneMaterial_EpicBattle_Deity.mp3-cf8271d701c872dbcfef91948e7b1dd0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

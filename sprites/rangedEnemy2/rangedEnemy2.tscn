@@ -1,0 +1,102 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://sprites/rangedEnemy/collisionBox.gd" type="Script" id=1]
+[ext_resource path="res://sprites/rangedEnemy2/rangedEnemy2.gd" type="Script" id=2]
+[ext_resource path="res://sprites/rangedEnemy2/enemyAnimations/enemy2.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://sprites/rangedEnemy2/fireAnimations/fire3.tres" type="SpriteFrames" id=4]
+[ext_resource path="res://sprites/rangedEnemy/targetBox.gd" type="Script" id=5]
+[ext_resource path="res://sprites/rangedEnemy2/rangedEnemyAssets/fireSound.wav" type="AudioStream" id=6]
+[ext_resource path="res://sprites/rangedEnemy2/projectileBox.gd" type="Script" id=7]
+[ext_resource path="res://sprites/spriteComponents/spriteDead.tres" type="Animation" id=8]
+[ext_resource path="res://sprites/spriteComponents/spriteIdle.tres" type="Animation" id=9]
+[ext_resource path="res://sprites/spriteComponents/spriteshurt.tres" type="Animation" id=10]
+[ext_resource path="res://sprites/rangedEnemy/hitSound.mp3" type="AudioStream" id=11]
+
+[sub_resource type="CircleShape2D" id=18]
+
+[sub_resource type="CircleShape2D" id=15]
+
+[sub_resource type="CircleShape2D" id=16]
+
+[sub_resource type="CircleShape2D" id=17]
+radius = 147.003
+
+[sub_resource type="CircleShape2D" id=24]
+
+[node name="rangedEnemy2" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 3 )
+animation = "down"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 18 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/spriteDead = ExtResource( 8 )
+anims/spriteIdle = ExtResource( 9 )
+anims/spriteshurt = ExtResource( 10 )
+
+[node name="collisionBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionBox"]
+shape = SubResource( 15 )
+
+[node name="hitBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 16
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
+shape = SubResource( 16 )
+
+[node name="targetBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 32
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="targetBox"]
+shape = SubResource( 17 )
+
+[node name="projectileBox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="projectileBox"]
+position = Vector2( 0, -10 )
+scale = Vector2( 1.5, 1.5 )
+frames = ExtResource( 4 )
+animation = "idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectileBox"]
+shape = SubResource( 24 )
+
+[node name="fireSound" type="AudioStreamPlayer" parent="projectileBox"]
+stream = ExtResource( 6 )
+volume_db = -20.0
+
+[node name="hitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+volume_db = -20.0
+
+[node name="hurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="hitBox" to="." method="_on_hitBox_area_entered"]
+[connection signal="area_entered" from="targetBox" to="." method="_on_targetBox_area_entered"]
+[connection signal="timeout" from="hurtTimer" to="." method="_on_hurtTimer_timeout"]

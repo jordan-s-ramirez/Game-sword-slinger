@@ -1,0 +1,5 @@
+[gd_resource type="StreamTexture" format=2]
+
+[resource]
+flags = 4
+load_path = "res://.import/pause-svgrepo-com.svg-d22352f4e88bb9388b60cccb8a1b6385.stex"

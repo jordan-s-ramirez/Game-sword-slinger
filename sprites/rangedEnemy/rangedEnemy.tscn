@@ -1,0 +1,206 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://sprites/rangedEnemy/collisionBox.gd" type="Script" id=1]
+[ext_resource path="res://sprites/rangedEnemy/rangedEnemyAssets/Casting_Spell_Aerial_(32 x 32).png" type="Texture" id=2]
+[ext_resource path="res://sprites/rangedEnemy/rangedEnemyAssets/Casting_Spell_(32 x 32).png" type="Texture" id=3]
+[ext_resource path="res://sprites/rangedEnemy/rangedEnemyAssets/Idle_(32 x 32).png" type="Texture" id=4]
+[ext_resource path="res://sprites/rangedEnemy/targetBox.gd" type="Script" id=5]
+[ext_resource path="res://sprites/rangedEnemy/rangedEnemy.gd" type="Script" id=6]
+[ext_resource path="res://sprites/rangedEnemy/projectileBox.gd" type="Script" id=7]
+[ext_resource path="res://sprites/rangedEnemy/rangedEnemyAssets/Magical_Orbs_Spell_(32 x 32).png" type="Texture" id=8]
+[ext_resource path="res://sprites/spriteComponents/spriteIdle.tres" type="Animation" id=9]
+[ext_resource path="res://sprites/spriteComponents/spriteshurt.tres" type="Animation" id=10]
+[ext_resource path="res://sprites/rangedEnemy/hitSound.mp3" type="AudioStream" id=11]
+[ext_resource path="res://sprites/spriteComponents/spriteDead.tres" type="Animation" id=12]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "fire",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=18]
+
+[sub_resource type="CircleShape2D" id=15]
+
+[sub_resource type="CircleShape2D" id=16]
+
+[sub_resource type="CircleShape2D" id=17]
+radius = 147.003
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "fire",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=24]
+
+[node name="rangedEnemy" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 6 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 14 )
+animation = "fire"
+frame = 6
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 18 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/spriteDead = ExtResource( 12 )
+anims/spriteIdle = ExtResource( 9 )
+anims/spriteshurt = ExtResource( 10 )
+
+[node name="collisionBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionBox"]
+shape = SubResource( 15 )
+
+[node name="hitBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
+shape = SubResource( 16 )
+
+[node name="targetBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="targetBox"]
+shape = SubResource( 17 )
+
+[node name="projectileBox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="projectileBox"]
+frames = SubResource( 23 )
+animation = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="projectileBox"]
+shape = SubResource( 24 )
+
+[node name="hitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+volume_db = -20.0
+
+[node name="hurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="hitBox" to="." method="_on_hitBox_area_entered"]
+[connection signal="area_entered" from="targetBox" to="." method="_on_targetBox_area_entered"]
+[connection signal="timeout" from="hurtTimer" to="." method="_on_hurtTimer_timeout"]

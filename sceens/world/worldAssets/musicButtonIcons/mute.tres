@@ -1,0 +1,5 @@
+[gd_resource type="StreamTexture" format=2]
+
+[resource]
+flags = 4
+load_path = "res://.import/speaker-sound-svgrepo-com.svg-699ab8bdf521c1df6a584647b1d7171c.stex"

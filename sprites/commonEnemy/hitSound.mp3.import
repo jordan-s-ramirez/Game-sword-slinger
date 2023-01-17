@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hitSound.mp3-34ad9b28a86cbf871389caf2f54ffd6a.mp3str"
+
+[deps]
+
+source_file="res://sprites/commonEnemy/hitSound.mp3"
+dest_files=[ "res://.import/hitSound.mp3-34ad9b28a86cbf871389caf2f54ffd6a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

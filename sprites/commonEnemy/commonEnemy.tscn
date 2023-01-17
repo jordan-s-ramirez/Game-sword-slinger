@@ -1,0 +1,80 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://sprites/commonEnemy/enemySpriteFrames/enemy1SF.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://sprites/commonEnemy/collisionBox.gd" type="Script" id=2]
+[ext_resource path="res://sprites/commonEnemy/commonEnemy.gd" type="Script" id=3]
+[ext_resource path="res://sprites/spriteComponents/spriteshurt.tres" type="Animation" id=4]
+[ext_resource path="res://sprites/spriteComponents/spriteIdle.tres" type="Animation" id=5]
+[ext_resource path="res://sprites/commonEnemy/hitbox.gd" type="Script" id=6]
+[ext_resource path="res://sprites/commonEnemy/hitSound.mp3" type="AudioStream" id=7]
+[ext_resource path="res://sprites/spriteComponents/spriteDead.tres" type="Animation" id=8]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="CircleShape2D" id=3]
+
+[sub_resource type="CircleShape2D" id=4]
+
+[node name="commonEnemy" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": "Collison Box = 2
+Hit box = 1"
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+animation = "down"
+frame = 2
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/spriteDead = ExtResource( 8 )
+anims/spriteIdle = ExtResource( 5 )
+anims/spriteshurt = ExtResource( 4 )
+
+[node name="collisionBox" type="Area2D" parent="."]
+collision_layer = 34
+collision_mask = 34
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionBox"]
+shape = SubResource( 2 )
+
+[node name="enemyHitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 512
+script = ExtResource( 6 )
+__meta__ = {
+"_editor_description_": "Hitbox should be the same as the weapon, set to 1 for testing"
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyHitbox"]
+shape = SubResource( 3 )
+
+[node name="attackBox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackBox"]
+shape = SubResource( 4 )
+
+[node name="hitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -20.101
+
+[node name="hitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="enemyHitbox" to="." method="_on_enemyHitbox_area_entered"]
+[connection signal="timeout" from="hitTimer" to="." method="_on_hitTimer_timeout"]
